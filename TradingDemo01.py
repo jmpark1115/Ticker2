@@ -17,7 +17,7 @@ class Coin(object):
         self.trade_min_thresh = 0 # unconditional trade
         self.targetSum        = 0
         self.baseSum          = 0
-        self.target           = 'XRP'
+        self.target           = 'BTC'
         self.base             = 'KRW'
         self.profit = 0
         self.hit = 0
@@ -159,8 +159,6 @@ class Coin(object):
                     print("start trading1 TS[%d] Profit[%d]" % (TradeSize, Profit))
                     if not self.dryrun:
                         # price, qty, side
-                        if TradeSize == 0:
-                            TradeSize = 10
                         result_b = bithumb.Order(price=bithumb.asks_price, qty=TradeSize, side='BUY')
                         print(f'bithumb_{result_b}_BUY_{TradeSize}@{bithumb.asks_price}')
                         result_c = coinone.Order(price=coinone.bids_price, qty=TradeSize, side='SELL')
@@ -174,8 +172,6 @@ class Coin(object):
                 if TradeSize > self.trade_min_thresh and Profit > 0:
                     print("start trading2 TS[%d] Profit[%d]" % (TradeSize, Profit))
                     if not self.dryrun:
-                        if TradeSize == 0:
-                            TradeSize = 10
                         result_c = coinone.Order(price=coinone.asks_price, qty=TradeSize, side='BUY')
                         print(f'coinone_{result_c}_BUY_{TradeSize}@{coinone.asks_price}')
                         result_b = bithumb.Order(price=bithumb.bids_price, qty=TradeSize, side='SELL')
